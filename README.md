@@ -4,7 +4,7 @@
 This software allows you to stitch an audio file to a video file to create a new video with synchronized audio. It utilizes FFmpeg for the stitching process.
 
 ## OS Compatibility
-This software should work on any operating system that supports Python and FFmpeg. For Windows, I have an executable file available. On MacOS you will need to use the [Python file](https://github.com/AlexanderCuenin/Audio-Video-Stitcher/blob/ae10ae0bee02a422971f3a9ef8ed96d3d81feee6/av_stitcher.pyw) to create a MacOS-compatible application.
+This software should work on any operating system that supports Python and FFmpeg. For Windows, I have an [executable](https://github.com/AlexanderCuenin/Audio-Video-Stitcher/blob/616ca568195dc627c90acc7652e72cc9ac2dbb15/av_stitcher.pyw) file available. On MacOS you will need to use the [Python file](https://github.com/AlexanderCuenin/Audio-Video-Stitcher/blob/ae10ae0bee02a422971f3a9ef8ed96d3d81feee6/av_stitcher.pyw) to create a MacOS-compatible application.
 
 ## Requirements
 - Python 3.x ([Download Python](https://www.python.org/downloads/))

@@ -20,7 +20,7 @@ This software should work on any operating system that supports Python and FFmpe
 4. **Extract the contents of the downloaded ZIP file to a folder:** Extract the contents of the downloaded ZIP file to a folder on your computer.
 
 ## Usage
-1. **Set FFmpeg Destination:** Run the `main.py` script. Click on the "Set FFmpeg Destination" button to select the location of the FFmpeg executable file on your system.
+1. **Set FFmpeg Destination:** Click on the "Set FFmpeg Destination" button to select the location of the FFmpeg executable file on your system.
 
 2. **Select Video, Audio, and Output File:** Use the "Browse" buttons to select the video source file, audio source file, and specify the output file location respectively.
 
@@ -31,6 +31,3 @@ This software should work on any operating system that supports Python and FFmpe
 ## Troubleshooting
 - If you encounter any issues with the software, ensure that Python and FFmpeg are correctly installed on your system and that the paths are set up correctly.
 - Make sure that you have necessary permissions to read/write files in the directories you are working in.
-
-For further assistance, please refer to the [documentation](link-to-documentation) or contact the developer.
-

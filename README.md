@@ -15,7 +15,7 @@ This software should work on any operating system that supports Python and FFmpe
 
 2. **Install FFmpeg:** Download FFmpeg from the official FFmpeg website or install it via a package manager if available for your operating system.
 
-3. **Download the Audio-Video Stitcher software:** Clone or download the Audio-Video Stitcher executable: av_stitcher.exe
+3. **Download the Audio-Video Stitcher software:** Clone or download the Audio-Video Stitcher executable: [av_stitcher.exe](https://github.com/AlexanderCuenin/Audio-Video-Stitcher/blob/f6758524393298b64bed949b452cd96f16663a1c/av_stitcher.exe)
 
 4. **Extract the contents of the downloaded ZIP file to a folder:** Extract the contents of the downloaded ZIP file to a folder on your computer.
 

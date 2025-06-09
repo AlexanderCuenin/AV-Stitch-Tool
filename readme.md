@@ -1,10 +1,10 @@
-# 🎬 AVStitchTool
+# 🎬 AV Stitch Tool
 
 ### FFmpeg-powered media processing by Alexander Cuenin
 
 ## Description
 
-The AVStitchTool is a straightforward desktop application designed to simplify common video and audio manipulation tasks using **FFmpeg**. It provides a user-friendly interface for two primary operations:
+The AV Stitch Tool is a straightforward desktop application designed to simplify common video and audio manipulation tasks using **FFmpeg**. It provides a user-friendly interface for two primary operations:
 
 * **🔗 Stitch Audio + Video:** Combine a video file with a separate audio file to create a new video with synchronized audio. This is perfect for syncing high-quality audio tracks to video recordings.
 * **🔇 Strip Audio:** Quickly remove the audio track from any video file, resulting in a video-only output.
@@ -24,12 +24,12 @@ This application is built with **Python Tkinter** and should run on any operatin
 
 ## Requirements
 
-To use the AVStitchTool, you'll need:
+To use the AV Stitch Tool, you'll need:
 
 * **Python 3.x:** (Tested with Python 3.11+)
     * [Download Python](https://www.python.org/downloads/)
 * **FFmpeg:** This is the tool that does all the video and audio magic.
-    * [Download FFmpeg](https://ffmpeg.org/download.html) (You'll download this, and then tell the AVStitchTool where to find it.)
+    * [Download FFmpeg](https://ffmpeg.org/download.html) (You'll download this, and then tell the AV Stitch Tool where to find it.)
 
 -----
 
@@ -39,10 +39,10 @@ To use the AVStitchTool, you'll need:
 2.  **Install FFmpeg:**
     * Go to the official [FFmpeg download page](https://ffmpeg.org/download.html) and follow their instructions to download and set it up.
     * What you're looking for is the **`ffmpeg.exe`** file. After you download FFmpeg, you'll usually find this `ffmpeg.exe` file inside a folder named **`bin`** (e.g., `C:\wherever-you-put-ffmpeg\bin\ffmpeg.exe`).
-    * **This `ffmpeg.exe` file is the one you'll point the AVStitchTool to later in the app's settings.** You don't need to do any tricky system setup!
-3.  **Download the AVStitchTool:**
+    * **This `ffmpeg.exe` file is the one you'll point the AV Stitch Tool to later in the app's settings.** You don't need to do any tricky system setup!
+3.  **Download the AV Stitch Tool:**
     * **For Windows users:**
-        * Download the latest `AVStitchTool.exe` from the [releases section](https://github.com/AlexanderCuenin/Audio-Video-Stitcher/releases).
+        * Download the latest `AV Stitch Tool.exe` from the [releases section](https://github.com/AlexanderCuenin/Audio-Video-Stitcher/releases).
         * **It's recommended to place the `.exe` in its own dedicated folder. The application will create a `stitcher_config.json` file in the same directory to save your FFmpeg path and other settings.**
     * **For other OS or if running from source:** Clone this repository or download the source code.
 
@@ -58,8 +58,8 @@ To use the AVStitchTool, you'll need:
 ## Usage
 
 1.  **Launch the Application:**
-    * **Windows Executable:** Double-click `AVStitchTool.exe`.
-    * **Python Script:** Run `python AVStitchTool.py` (or `python your_main_script_name.py` if you renamed it).
+    * **Windows Executable:** Double-click `AV Stitch Tool.exe`.
+    * **Python Script:** Run `python AV Stitch Tool.py` (or `python your_main_script_name.py` if you renamed it).
 2.  **Configure FFmpeg Path:**
     * In the "FFmpeg Configuration" section, click **"Browse"** to locate your FFmpeg executable (e.g., `ffmpeg.exe` on Windows).
     * Click **"Save"** to save this path for future sessions. The status indicator will turn green if configured correctly.
@@ -97,14 +97,14 @@ If you've cloned the source code and want to create a standalone executable for 
     ```bash
     pip install pyinstaller
     ```
-2.  **Navigate to your project directory** in your terminal where `AVStitchTool.py` (or your main script) is located.
+2.  **Navigate to your project directory** in your terminal where `AV Stitch Tool.py` (or your main script) is located.
 3.  **Run PyInstaller:**
     ```bash
-    python -m PyInstaller --onefile --windowed AVStitchTool.py --name "AVStitchTool"
+    python -m PyInstaller --onefile --windowed AV Stitch Tool.py --name "AV Stitch Tool"
     ```
     * `--onefile`: Creates a single `.exe` file.
     * `--windowed`: Prevents a console window from appearing when the app runs.
-    * `--name "AVStitchTool"`: Sets the name of the executable file to `AVStitchTool.exe`.
+    * `--name "AV Stitch Tool"`: Sets the name of the executable file to `AV Stitch Tool.exe`.
 4.  **Find your executable** in the newly created `dist/` folder within your project directory.
 
 -----

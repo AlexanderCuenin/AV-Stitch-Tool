@@ -8,7 +8,7 @@ import threading
 class AudioVideoStitcher:
     def __init__(self, root):
         self.root = root
-        self.root.title("AVS titch Tool v2.0.0") # Renamed the title here
+        self.root.title("AV Stitch Tool v2.0.0") # Renamed the title here
         self.root.geometry("600x870")
         self.root.resizable(True, True)
         

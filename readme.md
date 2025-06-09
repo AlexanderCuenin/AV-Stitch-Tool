@@ -1,4 +1,4 @@
-# 🎬 AV Stitch Tool
+# 🎬 AVStitchTool
 
 ### FFmpeg-powered media processing by Alexander Cuenin
 

@@ -1,10 +1,10 @@
-# 🎬 AV Stream Tool
+# 🎬 AV Stitch Tool
 
 ### FFmpeg-powered media processing by Alexander Cuenin
 
 ## Description
 
-The AV Stream Tool is a straightforward desktop application designed to simplify common video and audio manipulation tasks using **FFmpeg**. It provides a user-friendly interface for two primary operations:
+The AV Stitch Tool is a straightforward desktop application designed to simplify common video and audio manipulation tasks using **FFmpeg**. It provides a user-friendly interface for two primary operations:
 
   * **🔗 Stitch Audio + Video:** Combine a video file with a separate audio file to create a new video with synchronized audio. This is perfect for syncing high-quality audio tracks to video recordings.
   * **🔇 Strip Audio:** Quickly remove the audio track from any video file, resulting in a video-only output.
@@ -24,7 +24,7 @@ This application is built with **Python Tkinter** and should run on any operatin
 
 ## Requirements
 
-To use the AV Stream Tool, you'll need:
+To use the AV Stitch Tool, you'll need:
 
   * **Python 3.x:** (Tested with Python 3.11+)
       * [Download Python](https://www.python.org/downloads/)
@@ -37,7 +37,7 @@ To use the AV Stream Tool, you'll need:
 
 1.  **Install Python:** Download and install Python from the official website. Make sure to check the option **"Add Python to PATH"** during installation (if available) for easier command-line use.
 2.  **Install FFmpeg:** Download FFmpeg. For Windows, extract the archive and add the `bin` folder (e.g., `ffmpeg-N.N-full_build\bin`) to your system's **PATH environment variable**. Alternatively, remember the full path to `ffmpeg.exe` as you'll need to specify it in the application.
-3.  **Download the AV Stream Tool:**
+3.  **Download the AV Stitch Tool:**
       * **For Windows users:** Download the latest `AVStreamTool.exe` from the [releases section](https://www.google.com/search?q=https://github.com/AlexanderCuenin/Audio-Video-Stitcher/releases).
       * **For other OS or if running from source:** Clone this repository or download the source code:
         ```bash

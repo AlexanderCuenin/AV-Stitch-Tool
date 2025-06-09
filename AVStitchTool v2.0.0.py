@@ -8,7 +8,7 @@ import threading
 class AudioVideoStitcher:
     def __init__(self, root):
         self.root = root
-        self.root.title("AVStitchTool") # Renamed the title here
+        self.root.title("AVS titch Tool v2.0.0") # Renamed the title here
         self.root.geometry("600x870")
         self.root.resizable(True, True)
         
@@ -59,7 +59,7 @@ class AudioVideoStitcher:
         title_frame.grid(row=row, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
         title_frame.columnconfigure(0, weight=1)
         
-        title_label = ttk.Label(title_frame, text="🎬 AVStitchTool", 
+        title_label = ttk.Label(title_frame, text="🎬 AV Stitch Tool", 
                                  font=('Arial', 16, 'bold'))
         title_label.grid(row=0, column=0)
         

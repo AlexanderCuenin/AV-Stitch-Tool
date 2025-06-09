@@ -8,8 +8,8 @@ import threading
 class AudioVideoStitcher:
     def __init__(self, root):
         self.root = root
-        self.root.title("AV Stitch Tool v2.0.0")
-        self.root.geometry("600x850")
+        self.root.title("AVStitchTool") # Renamed the title here
+        self.root.geometry("600x870")
         self.root.resizable(True, True)
         
         # Configuration file path
@@ -17,15 +17,15 @@ class AudioVideoStitcher:
         self.config = self.load_config()
         
         # Current mode: 'stitch' or 'strip'
-        self.current_mode = tk.StringVar(value="stitch")
-         
+        self.current_mode = tk.StringVar(value=self.config.get('last_mode', 'stitch')) # Load last mode
+        
         # File paths
         self.ffmpeg_path = tk.StringVar(value=self.config.get('ffmpeg_path', ''))
         self.video_source = tk.StringVar()
         self.audio_source = tk.StringVar()
         self.video_to_strip = tk.StringVar()
         self.output_file = tk.StringVar()
-        
+
         self.setup_ui()
         self.update_ffmpeg_status()
         self.update_command_preview()
@@ -36,7 +36,7 @@ class AudioVideoStitcher:
         self.audio_source.trace('w', lambda *args: self.update_command_preview())
         self.video_to_strip.trace('w', lambda *args: self.update_command_preview())
         self.output_file.trace('w', lambda *args: self.update_command_preview())
-        self.current_mode.trace('w', lambda *args: self.update_command_preview())
+        self.current_mode.trace('w', lambda *args: self.on_mode_change()) # Call on_mode_change (mostly for saving mode)
 
     def setup_ui(self):
         # Configure style
@@ -59,8 +59,8 @@ class AudioVideoStitcher:
         title_frame.grid(row=row, column=0, sticky=(tk.W, tk.E), pady=(0, 20))
         title_frame.columnconfigure(0, weight=1)
         
-        title_label = ttk.Label(title_frame, text="🎬 AV Stitch Tool", 
-                                font=('Arial', 16, 'bold'))
+        title_label = ttk.Label(title_frame, text="🎬 AVStitchTool", 
+                                 font=('Arial', 16, 'bold'))
         title_label.grid(row=0, column=0)
         
         subtitle_label = ttk.Label(title_frame, text="FFmpeg-powered media processing tool by Alexander Cuenin", 
@@ -140,7 +140,7 @@ class AudioVideoStitcher:
         ttk.Entry(video_frame, textvariable=self.video_source, 
                   font=('Arial', 9)).grid(row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 5))
         ttk.Button(video_frame, text="Browse", 
-                   command=lambda: self.browse_file(self.video_source, "video")).grid(row=0, column=1)
+                   command=lambda: self.browse_file(self.video_source, "video_input_for_output_suggestion")).grid(row=0, column=1)
         
         ttk.Label(self.stitch_frame, text="🎵 Audio Source:", 
                   font=('Arial', 10, 'bold')).grid(row=2, column=0, sticky=tk.W, pady=(0, 5))
@@ -168,7 +168,7 @@ class AudioVideoStitcher:
         ttk.Entry(strip_video_frame, textvariable=self.video_to_strip, 
                   font=('Arial', 9)).grid(row=0, column=0, sticky=(tk.W, tk.E), padx=(0, 5))
         ttk.Button(strip_video_frame, text="Browse", 
-                   command=lambda: self.browse_file(self.video_to_strip, "video")).grid(row=0, column=1)
+                   command=lambda: self.browse_file(self.video_to_strip, "video_input_for_output_suggestion")).grid(row=0, column=1)
         
         row += 1
         
@@ -238,6 +238,8 @@ class AudioVideoStitcher:
     def save_config(self):
         """Save configuration to file"""
         try:
+            self.config['ffmpeg_path'] = self.ffmpeg_path.get()
+            self.config['last_mode'] = self.current_mode.get()
             with open(self.config_file, 'w') as f:
                 json.dump(self.config, f, indent=2)
         except Exception as e:
@@ -256,11 +258,8 @@ class AudioVideoStitcher:
         """Save FFmpeg path to configuration"""
         path = self.ffmpeg_path.get().strip()
         if path:
-            self.config['ffmpeg_path'] = path
             self.save_config()
             self.update_ffmpeg_status()
-            # Removed the success messagebox
-            # messagebox.showinfo("Success", "FFmpeg path saved successfully!")
         else:
             messagebox.showerror("Error", "Please enter a valid FFmpeg path")
 
@@ -275,23 +274,71 @@ class AudioVideoStitcher:
         self.update_execute_button()
 
     def browse_file(self, var, file_type):
-        """Browse for input files"""
-        if file_type == "video":
+        """Browse for input files and potentially set output path"""
+        if "video_input" in file_type:
             filetypes = [("Video files", "*.mp4 *.avi *.mov *.mkv *.wmv *.flv"), ("All files", "*.*")]
-        else:  # audio
+        elif file_type == "audio":
             filetypes = [("Audio files", "*.mp3 *.wav *.aac *.m4a *.ogg *.flac"), ("All files", "*.*")]
-        
+        else:
+            filetypes = [("Video files", "*.mp4 *.avi *.mov *.mkv *.wmv *.flv"), ("All files", "*.*")]
+            
         filename = filedialog.askopenfilename(
-            title=f"Select {file_type} file",
+            title=f"Select {file_type.replace('_input_for_output_suggestion', '').replace('_', ' ')} file",
             filetypes=filetypes
         )
         if filename:
             var.set(filename)
+            
+            # Auto-fill output path with "_stitched" or "_stripped" suffix
+            if "video_input_for_output_suggestion" in file_type:
+                directory, base_name = os.path.split(filename)
+                name, ext = os.path.splitext(base_name)
+                
+                suffix = ""
+                if self.current_mode.get() == "stitch":
+                    suffix = "_stitched"
+                elif self.current_mode.get() == "strip":
+                    suffix = "_stripped"
+                
+                # Avoid double-appending the suffix
+                if not name.endswith(suffix):
+                    suggested_output_name = f"{name}{suffix}{ext}"
+                else:
+                    suggested_output_name = f"{name}{ext}" # Keep as is if already has suffix
+                        
+                self.output_file.set(os.path.join(directory, suggested_output_name))
 
     def browse_output_file(self):
         """Browse for output file location"""
+        default_name = "output.mp4"
+        current_input_video_path = None
+
+        if self.current_mode.get() == "stitch":
+            current_input_video_path = self.video_source.get()
+        elif self.current_mode.get() == "strip":
+            current_input_video_path = self.video_to_strip.get()
+
+        directory = os.path.expanduser("~")
+        if current_input_video_path:
+            directory, base_name = os.path.split(current_input_video_path)
+            name, ext = os.path.splitext(base_name)
+            
+            suffix = ""
+            if self.current_mode.get() == "stitch":
+                suffix = "_stitched"
+            elif self.current_mode.get() == "strip":
+                suffix = "_stripped"
+            
+            # Avoid double-appending the suffix
+            if not name.endswith(suffix):
+                default_name = f"{name}{suffix}{ext}"
+            else:
+                default_name = f"{name}{ext}" # Keep as is if already has suffix
+        
         filename = filedialog.asksaveasfilename(
             title="Save output file as",
+            initialdir=directory,
+            initialfile=default_name,
             defaultextension=".mp4",
             filetypes=[("MP4 files", "*.mp4"), ("AVI files", "*.avi"), ("All files", "*.*")]
         )
@@ -300,13 +347,15 @@ class AudioVideoStitcher:
 
     def on_mode_change(self):
         """Handle mode change between stitch and strip"""
-        if self.current_mode.get() == "stitch":
+        current_mode_val = self.current_mode.get()
+        if current_mode_val == "stitch":
             self.stitch_frame.grid(row=0, column=0, sticky=(tk.W, tk.E))
             self.strip_frame.grid_remove()
-        else:
+        else: # strip mode
             self.strip_frame.grid(row=0, column=0, sticky=(tk.W, tk.E))
             self.stitch_frame.grid_remove()
         self.update_command_preview()
+        self.save_config()
 
     def update_command_preview(self):
         """Update the command preview text"""
@@ -337,8 +386,8 @@ class AudioVideoStitcher:
     def update_execute_button(self):
         """Update execute button state"""
         command = self.command_text.get(1.0, tk.END).strip()
-        if (self.ffmpeg_path.get().strip() and 
-            command and 
+        if (self.ffmpeg_path.get().strip() and
+            command and
             command != "Command will appear here..."):
             self.execute_btn.config(state="normal")
         else:
@@ -352,29 +401,30 @@ class AudioVideoStitcher:
             messagebox.showerror("Error", "No valid command to execute")
             return
         
+        final_output_path = self.output_file.get()
+
         # Disable the button and start progress
         self.execute_btn.config(state="disabled")
         self.progress.start()
         self.status_text.config(text="Processing...")
         
         # Execute in a separate thread to prevent UI freezing
-        thread = threading.Thread(target=self.run_ffmpeg_command, args=(command,))
+        thread = threading.Thread(target=self.run_ffmpeg_command, 
+                                  args=(command, final_output_path))
         thread.daemon = True
         thread.start()
 
-    def run_ffmpeg_command(self, command):
+    def run_ffmpeg_command(self, command, final_output_path):
         """Run FFmpeg command in a separate thread"""
         try:
-            # Execute the command
             result = subprocess.run(command, shell=True, capture_output=True, text=True)
             
-            # Update UI in main thread
-            self.root.after(0, self.command_completed, result.returncode, result.stderr)
+            self.root.after(0, self.command_completed, result.returncode, result.stderr, final_output_path)
             
         except Exception as e:
-            self.root.after(0, self.command_completed, -1, str(e))
+            self.root.after(0, self.command_completed, -1, str(e), None)
 
-    def command_completed(self, return_code, error_output):
+    def command_completed(self, return_code, error_output, final_output_path):
         """Handle command completion"""
         self.progress.stop()
         self.execute_btn.config(state="normal")

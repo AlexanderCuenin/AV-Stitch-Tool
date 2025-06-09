@@ -1,4 +1,4 @@
-# Audio-Video Stitcher
+# AV Stream Tool
 
 ## Description
 This software allows you to stitch an audio file to a video file to create a new video with synchronized audio. It utilizes FFmpeg for the stitching process.

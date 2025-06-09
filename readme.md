@@ -1,4 +1,4 @@
-# 🎬 AVStitchTool
+# 🎬 AV Stitch Tool
 
 ### FFmpeg-powered media processing by Alexander Cuenin
 
@@ -28,15 +28,18 @@ To use the AVStitchTool, you'll need:
 
   * **Python 3.x:** (Tested with Python 3.11+)
       * [Download Python](https://www.python.org/downloads/)
-  * **FFmpeg:** The core engine for all media processing.
-      * [Download FFmpeg](https://ffmpeg.org/download.html) (Ensure you download the correct build for your OS and add its `bin` directory to your system's PATH, or note its exact path for the application.)
+  * **FFmpeg:** This is the tool that does all the video and audio magic.
+      * [Download FFmpeg](https://ffmpeg.org/download.html) (You'll download this, and then tell the AVStitchTool where to find it.)
 
 -----
 
 ## Installation & Setup
 
-1.  **Install Python:** Download and install Python from the official website. Make sure to check the option **"Add Python to PATH"** during installation (if available) for easier command-line use.
-2.  **Install FFmpeg:** Download FFmpeg. For Windows, extract the archive and add the `bin` folder (e.g., `ffmpeg-N.N-full_build\bin`) to your system's **PATH environment variable**. Alternatively, remember the full path to `ffmpeg.exe` as you'll need to specify it in the application.
+1.  **Install Python:** Download and install Python from the official website. It's often helpful to check the option **"Add Python to PATH"** during installation (if available) for easier command-line use, but it's not strictly required for running the `.exe` version of this app.
+2.  **Install FFmpeg:**
+    * Go to the official [FFmpeg download page](https://ffmpeg.org/download.html) and follow their instructions to download and set it up.
+    * What you're looking for is the **`ffmpeg.exe`** file. After you download FFmpeg, you'll usually find this `ffmpeg.exe` file inside a folder named **`bin`** (e.g., `C:\wherever-you-put-ffmpeg\bin\ffmpeg.exe`).
+    * **This `ffmpeg.exe` file is the one you'll point the AVStitchTool to later in the app's settings.** You don't need to do any tricky system setup!
 3.  **Download the AVStitchTool:**
       * **For Windows users:**
         * Download the latest `AVStitchTool.exe` from the [releases section](https://github.com/AlexanderCuenin/Audio-Video-Stitcher/releases).

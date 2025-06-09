@@ -267,7 +267,7 @@ class AudioVideoStitcher:
         """Update FFmpeg status indicator"""
         if self.ffmpeg_path.get().strip():
             self.status_indicator.config(fg="green")
-            self.status_label.config(text="FFmpeg path configured ✓")
+            self.status_label.config(text="FFmpeg path set ✓")
         else:
             self.status_indicator.config(fg="red")
             self.status_label.config(text="FFmpeg path not set")
